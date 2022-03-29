@@ -78,7 +78,7 @@ class Vehicle:
 
     def update_label(self, event):
         nueva_lum = self.scale.get()
-        #self.label2.configure(text = str(self.scale.get()))
+        self.label2.configure(value = str(self.environment.get_lum()))
         self.environment.set_lum(nueva_lum)
 
 
