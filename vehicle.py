@@ -64,6 +64,7 @@ class Vehicle:
 
         self.scale = tk.Scale(self.labelframe2, from_ = 0, to = 99, orient = tk.HORIZONTAL, command=self.update_label, length = '665')
         self.scale.grid(column = 0, row = 0, sticky = 'we')
+        self.scale.set(self.environment.get_lum())
 
     
 
@@ -78,7 +79,7 @@ class Vehicle:
 
     def update_label(self, event):
         nueva_lum = self.scale.get()
-        self.label2.configure(value = str(self.environment.get_lum()))
+        self.label2.set(self.environment.get_lum())
         self.environment.set_lum(nueva_lum)
 
 
