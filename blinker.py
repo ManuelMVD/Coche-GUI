@@ -14,6 +14,8 @@ class Blinker(threading.Thread):
         self.blinking=False
         self.deactivate()
 
+        self.go_blink = False
+
     def activate(self):
         self.activated=True
 
@@ -34,6 +36,11 @@ class Blinker(threading.Thread):
 
     def change(self):
         self.activated = not self.activated
+    
+    def change_go_blink(self):
+        self.go_blink = not self.go_blink
+        if not self.go_blink:
+            self.activated = False
 
     def __str__(self):
         if self.activated:
@@ -45,7 +52,6 @@ class Blinker(threading.Thread):
 
     def run(self):
         while True:
-            if self.activated:
-                self.blink()
-            
+            if self.go_blink:        
+                self.blink()  
             sleep(0.5)

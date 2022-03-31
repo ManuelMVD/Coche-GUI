@@ -97,9 +97,9 @@ class Vehicle:
 
     def action(self,evento):
         if evento.keysym=='s':
-                self.blinker_front.change()
+                self.blinker_front.change_go_blink()
         if evento.keysym=='a':
-                self.blinker_rear.change()
+                self.blinker_rear.change_go_blink()
         if evento.keysym=='r':
                 self.environment.modify_lum(10)
                 self.scale.set(self.environment.get_lum())
