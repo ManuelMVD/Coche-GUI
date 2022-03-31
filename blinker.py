@@ -12,20 +12,20 @@ class Blinker(threading.Thread):
         self.pos=pos       
 
         self.blinking=False
-        self.deactivate()
+        self.desactivate()
 
         self.go_blink = False
 
     def activate(self):
         self.activated=True
 
-    def deactivate(self):
+    def desactivate(self):
         self.activated=False
 
     def blink(self):
         self.blinking=not self.blinking
         if not self.blinking:
-            self.deactivate()
+            self.desactivate()
         else:
             self.activate()
 
@@ -40,7 +40,7 @@ class Blinker(threading.Thread):
     def change_go_blink(self):
         self.go_blink = not self.go_blink
         if not self.go_blink:
-            self.activated = False
+            self.desactivate()
 
     def __str__(self):
         if self.activated:
