@@ -13,6 +13,9 @@ class Fuel:
     def get_porcentage_level(self):
         return self.level*100/1000
 
+    def reload(self):
+        self.level = 1000
+
     def __str__(self):        
         return str(self.level)+ " L"
 

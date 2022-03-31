@@ -69,6 +69,15 @@ class Vehicle:
     
 
         # añadir barra progreso combustible
+        self.labelframe3 = ttk.LabelFrame(self.ventana1, text= 'Fuel')
+        self.labelframe3.grid(column=0, row=30, sticky='we')
+        self.progress = ttk.Progressbar(self.labelframe3, orient = HORIZONTAL, length= 665, mode='determinate')
+        self.progress.pack(pady=10)
+        self.progress['value'] = self.fuel.get_porcentage_level()
+
+
+
+
 
         self.ventana1.after(500,self.do_work) #se llama a la interfaz grafica cada cierto tiempo para actualizar datos.
         self.ventana1.bind("<KeyPress>", self.action)
@@ -79,9 +88,7 @@ class Vehicle:
 
     def update_label(self, event):
         nueva_lum = self.scale.get()
-        #self.label2.set(self.environment.get_lum())
         self.environment.set_lum(nueva_lum)
-        self.scale.set(self.environment.get_lum())
 
 
     def on_closing(self):
@@ -95,8 +102,10 @@ class Vehicle:
                 self.blinker_rear.blink()
         if evento.keysym=='r':
                 self.environment.modify_lum(10)
+                self.scale.set(self.environment.get_lum())
         if evento.keysym=='f':
                 self.environment.modify_lum(-10)
+                self.scale.set(self.environment.get_lum())
         if evento.keysym=='w':
                 self.engine.modify_rpm(100)
         if evento.keysym=='z':
@@ -104,13 +113,13 @@ class Vehicle:
         if evento.keysym == 'e':
                 self.engine.modify_gear(1)
         if evento.keysym == 'd':
-                self.engine.modify_gear(-1)                 
+                self.engine.modify_gear(-1)        
         if evento.keysym=='c':
                 self.redlight.activate()
         if evento.keysym=='v':
                 self.redlight.deactivate()
-        #if evento.keysym=='g':
-        #        self.fuel.reload()
+        if evento.keysym=='g':
+                self.fuel.reload()
 
 
     def draw_background(self):       
@@ -181,7 +190,10 @@ class Vehicle:
 
         self.light.update()
         self.fuel.update()
- 
+        self.progress['value'] = self.fuel.get_porcentage_level()
+        if self.fuel.get_porcentage_level() <= 0:
+            self.engine.stop()
+        self.labelframe3.update_idletasks()  
         self.draw_background()
 
         if self.fuel.get_porcentage_level()>0:
@@ -191,5 +203,6 @@ class Vehicle:
         self.draw_blinker_rear()
         self.draw_light()
         self.draw_redlight()
+        self.label1.config(text=str(self.engine))
 
 vehicle1 = Vehicle()

@@ -27,7 +27,7 @@ class Engine:
         return res
 
     def stop(self):
-        self.rpm=0
+        self.rpm = 0
 
     def __str__(self):
         status = str(self.rpm) +" rpm " +str(self.gear)+" "+str(self.get_speed()) + " km/h"
